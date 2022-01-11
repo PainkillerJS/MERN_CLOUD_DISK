@@ -1,13 +1,23 @@
 import express from "express";
+import mongoose from "mongoose";
+
+import router from "./routes/auth.routes";
 
 const app = express();
 
+app.use(express.json());
+app.use("/auth", router);
+
 const PORT = process.env.PORT;
+const CONNECT = process.env.CONNECT || "";
 
-app.get("/", (req, res) => {
-  res.send("qq12333345");
-});
+async function startServer() {
+  try {
+    await mongoose.connect(CONNECT);
+    app.listen(PORT, () => console.log(`server is listening on ${PORT}`));
+  } catch (e) {
+    console.log(e);
+  }
+}
 
-app.listen(PORT, () => {
-  return console.log(`server is listening on ${PORT}`);
-});
+startServer();
