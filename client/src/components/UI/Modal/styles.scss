@@ -1,0 +1,21 @@
+.modal {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  width: 100%;
+  top: 0;
+
+  &__window {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 40rem;
+    height: 30rem;
+    border-radius: 1rem;
+    background-color: #fff;
+    padding: 1rem;
+  }
+}

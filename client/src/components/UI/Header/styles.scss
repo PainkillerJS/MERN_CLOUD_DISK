@@ -1,0 +1,45 @@
+.header {
+  display: flex;
+  align-items: center;
+  height: 4rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 0.6rem;
+
+  img {
+    height: 97%;
+    margin-left: 0.7rem;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    cursor: pointer;
+
+    span {
+      font-size: 1.5rem;
+      margin-left: 0.9rem;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  &__panelOptions {
+    margin-left: auto;
+
+    span {
+      color: rgb(0, 0, 0);
+      font-size: 1.3rem;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    span:hover {
+      color: rgb(230, 19, 19);
+    }
+
+    span:last-child {
+      margin-left: 1rem;
+    }
+  }
+}
