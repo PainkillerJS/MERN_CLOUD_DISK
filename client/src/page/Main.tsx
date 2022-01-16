@@ -1,5 +1,9 @@
-import { MainContainer } from "../components/containers/MainContainer";
+import { Header } from "../components/UI/Header";
 
-const Main = () => <MainContainer />;
+const Main = () => (
+  <>
+    <Header />
+  </>
+);
 
 export default Main;

@@ -12,8 +12,8 @@ export const Header = () => (
       <span>Диск</span>
     </div>
     <div className="header__panelOptions">
-      <Link to={`/auth/${EFormType.FORM_LOGIN}`}>Вход</Link>
-      <Link to={`/auth/${EFormType.FORM_REG}`}>Регистрация</Link>
+      <Link to={`/${EFormType.FORM_LOGIN}`}>Вход</Link>
+      <Link to={`/${EFormType.FORM_REG}`}>Регистрация</Link>
     </div>
   </div>
 );

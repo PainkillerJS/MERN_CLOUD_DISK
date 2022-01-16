@@ -9,7 +9,6 @@
   "rules": {
     "semi": ["error", "always"],
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "jsx-a11y/anchor-is-valid": 0,
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/no-explicit-any": "error",
     "import/no-anonymous-default-export": "off",
