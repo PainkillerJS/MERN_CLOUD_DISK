@@ -1,5 +1,4 @@
-export enum EModalType {
-  NO_MODAL,
-  MODAL_REG,
-  MODAL_AUTH
+export enum EFormType {
+  FORM_REG = "registration",
+  FORM_LOGIN = "authentication"
 }

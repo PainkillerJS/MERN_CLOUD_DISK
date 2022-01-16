@@ -1,16 +1,17 @@
 import "./normalize.scss";
 
-import { ModalProvider } from "../context/ModalContext";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import { Header } from "../UI/Header";
 import { Modal } from "../UI/Modal";
 
 export const MainContainer = () => {
   return (
-    <ModalProvider>
-      <div>
-        <Header />
-        <Modal />
-      </div>
-    </ModalProvider>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/auth/:action" element={<Modal />} />
+      </Routes>
+    </Router>
   );
 };

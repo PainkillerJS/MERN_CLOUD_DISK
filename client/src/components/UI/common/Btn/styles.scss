@@ -1,0 +1,14 @@
+button {
+  width: 90%;
+  padding: 0.4rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+  background-color: aqua;
+  border: 0;
+
+  &:active,
+  &:focus {
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  }
+}

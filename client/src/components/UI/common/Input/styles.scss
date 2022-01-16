@@ -1,0 +1,11 @@
+.input {
+  margin: 1rem 0;
+  width: 90%;
+  padding: 0.3rem;
+  font-size: 1.1rem;
+
+  &:focus,
+  &:hover {
+    outline: 0;
+  }
+}

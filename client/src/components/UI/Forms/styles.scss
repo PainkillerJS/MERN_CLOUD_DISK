@@ -1,0 +1,15 @@
+form {
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+
+  & h3 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    margin-bottom: auto;
+  }
+}

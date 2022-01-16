@@ -1,3 +1,5 @@
+@import url("../../../common/color.scss");
+
 .modal {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.4);
@@ -12,10 +14,23 @@
     right: 0;
     bottom: 0;
     margin: auto;
-    width: 40rem;
-    height: 30rem;
+    width: 25rem;
+    height: 17rem;
     border-radius: 1rem;
     background-color: #fff;
     padding: 1rem;
+  }
+
+  &__close {
+    position: absolute;
+    right: 1rem;
+    top: 0.2rem;
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: #000;
+  }
+
+  &__close:hover {
+    color: var(--colorFont);
   }
 }

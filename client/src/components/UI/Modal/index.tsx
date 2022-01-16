@@ -1,13 +1,17 @@
 import "./styles.scss";
 
-import { useModal } from "../../context/ModalContext";
+import { Link } from "react-router-dom";
+import { Forms } from "../Forms";
 
 export const Modal = () => {
-  const { modalType } = useModal();
-  console.log(modalType);
   return (
     <div className="modal">
-      <div className="modal__window">53454</div>
+      <div className="modal__window">
+        <Link className="modal__close" to="/">
+          &times;
+        </Link>
+        <Forms />
+      </div>
     </div>
   );
 };
