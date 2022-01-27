@@ -1,9 +1,19 @@
 import "./styles.scss";
 
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import { useAppSelector } from "../../../store/hooks/reduxHooks";
 import { Forms } from "../Forms";
 
 export const Modal = () => {
+  const isAuth = useAppSelector((state) => state.user.isAuth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    isAuth && navigate("/");
+  }, [isAuth]);
+
   return (
     <div className="modal">
       <div className="modal__window">

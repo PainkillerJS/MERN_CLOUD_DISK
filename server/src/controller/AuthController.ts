@@ -24,7 +24,9 @@ class AuthController {
 
     await user.save();
 
-    return res.status(200).json({ message: "The user was successfully registered" });
+    const jwt = genetateJWT(user._id);
+
+    return res.status(200).json({ user, jwt });
   }
 
   async login(req: Request, res: Response) {
@@ -44,7 +46,20 @@ class AuthController {
 
     const jwt = genetateJWT(user._id);
 
-    return res.status(200).json({ jwt });
+    return res.status(200).json({ jwt, user });
+  }
+
+  async auth(req: Request, res: Response) {
+    //@ts-expect-error
+    const user = await User.findById({ _id: req.user._id });
+
+    if (!user) {
+      return res.status(400).json({ message: "The user is not been" });
+    }
+
+    const jwt = genetateJWT(user._id);
+
+    return res.status(200).json({ jwt, user });
   }
 }
 
