@@ -16,7 +16,7 @@ class AuthController {
     const { email, password } = req.body;
 
     if (await User.findOne({ email })) {
-      return res.status(400).json({ message: "The email is not corrected" });
+      return res.status(400).json({ message: "The email is registered" });
     }
 
     const hashPassword = bcryptjs.hashSync(password, Number(process.env.saltHash));

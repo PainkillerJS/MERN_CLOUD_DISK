@@ -6,7 +6,7 @@ import AuthController from "../controller/AuthController";
 
 const router = Router();
 
-router.post("/registration", body("email").isEmail(), body("password").isLength({ min: 8 }), AuthController.registration);
+router.post("/registration", body("email").isEmail(), AuthController.registration);
 
 router.post("/login", AuthController.login);
 

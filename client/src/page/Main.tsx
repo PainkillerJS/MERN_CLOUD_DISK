@@ -1,24 +1,5 @@
-import { useEffect } from "react";
+import { MainPage } from "../components/page/Main";
 
-import { useAppDispatch } from "../store/hooks/reduxHooks";
-import { getItem } from "../package/storage";
-import { AuthToken } from "../features/Auth/action";
-import { Header } from "../components/UI/Header";
-
-const Main = () => {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    const token = getItem() !== "undefined" && getItem();
-
-    token && dispatch(AuthToken(token));
-  }, []);
-
-  return (
-    <>
-      <Header />
-    </>
-  );
-};
+const Main = () => <MainPage />;
 
 export default Main;
