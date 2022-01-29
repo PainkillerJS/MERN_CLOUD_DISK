@@ -1,5 +1,5 @@
-import { Modal } from "../components/UI/Modal";
+import { AuthPage } from "../components/page/Auth";
 
-const Auth = () => <Modal />;
+const Auth = () => <AuthPage />;
 
 export default Auth;

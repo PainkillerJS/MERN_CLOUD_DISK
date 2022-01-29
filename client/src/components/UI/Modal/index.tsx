@@ -1,12 +1,13 @@
 import "./styles.scss";
 
 import { useEffect } from "react";
+import type { FC } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
 
 import { useAppSelector } from "../../../store/hooks/reduxHooks";
-import { Forms } from "../Forms";
 
-export const Modal = () => {
+export const Modal: FC = ({ children }) => {
   const isAuth = useAppSelector((state) => state.user.isAuth);
   const navigate = useNavigate();
 
@@ -20,7 +21,7 @@ export const Modal = () => {
         <Link className="modal__close" to="/">
           &times;
         </Link>
-        <Forms />
+        {children}
       </div>
     </div>
   );
