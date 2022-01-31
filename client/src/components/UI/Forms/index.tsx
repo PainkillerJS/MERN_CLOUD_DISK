@@ -2,7 +2,7 @@ import "./styles.scss";
 
 import { useRef, useState } from "react";
 import type { MutableRefObject, MouseEventHandler } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "../../../store/hooks/reduxHooks";
 import { AuthRegistration, AuthLogin } from "../../../features/Auth/action";
@@ -17,32 +17,32 @@ interface IProps {
   inputPassword: MutableRefObject<string>;
   error: string;
   onSendData: MouseEventHandler<Element>;
-  errorServer: string;
   isLoading: boolean;
 }
 
-const FormLogin = ({ inputName, inputPassword, onSendData, error, errorServer, isLoading }: IProps) => (
+const FormLogin = ({ inputName, inputPassword, onSendData, error, isLoading }: IProps) => (
   <form className="form__auth">
     <h3>Авторизация</h3>
-    <Input error={error} errorServer={errorServer} inputValue={inputName} type="email" placeholder="Email" />
-    <Input errorServer={errorServer} inputValue={inputPassword} type="password" placeholder="Пароль" />
+    <Input error={error} inputValue={inputName} type="email" placeholder="Email" />
+    <Input inputValue={inputPassword} type="password" placeholder="Пароль" />
     <Button text="Отправить" onClick={onSendData} disabled={isLoading} />
   </form>
 );
 
-const FormReg = ({ inputName, inputPassword, onSendData, error, errorServer, isLoading }: IProps) => (
+const FormReg = ({ inputName, inputPassword, onSendData, error, isLoading }: IProps) => (
   <form className="form__reg">
     <h3>Регистрация</h3>
-    <Input errorServer={errorServer} error={error} type="email" inputValue={inputName} placeholder="Email" />
-    <Input errorServer={errorServer} inputValue={inputPassword} type="password" placeholder="Пароль" />
+    <Input error={error} type="email" inputValue={inputName} placeholder="Email" />
+    <Input inputValue={inputPassword} type="password" placeholder="Пароль" />
     <Button text="Отправить" onClick={onSendData} disabled={isLoading} />
   </form>
 );
 
 export const Forms = () => {
-  const { action } = useParams();
   const dispatch = useAppDispatch();
-  const { isLoading, error: errorServer } = useAppSelector((state) => state.user);
+  const { action } = useParams();
+  const navigate = useNavigate();
+  const { isLoading } = useAppSelector((state) => state.user);
 
   const inputName = useRef<string>("");
   const inputPassword = useRef<string>("");
@@ -63,19 +63,33 @@ export const Forms = () => {
       : dispatch(AuthLogin({ email: inputName.current, password: inputPassword.current }));
   };
 
+  const changeForms = (type: EFormType) => () => navigate(`/${type}`);
+
   const props: IProps = {
     inputName,
     inputPassword,
     error,
     onSendData,
-    isLoading,
-    errorServer
+    isLoading
   };
 
   return (
     <>
       {action === EFormType.FORM_REG && <FormReg {...props} />}
       {action === EFormType.FORM_LOGIN && <FormLogin {...props} />}
+      <div className="form__footer">
+        {action === EFormType.FORM_REG ? (
+          <>
+            Уже имеете аккаунт?
+            <span onClick={changeForms(EFormType.FORM_LOGIN)}>Войти</span>
+          </>
+        ) : (
+          <>
+            Нет аккаунта?
+            <span onClick={changeForms(EFormType.FORM_REG)}>Регистрация</span>
+          </>
+        )}
+      </div>
     </>
   );
 };

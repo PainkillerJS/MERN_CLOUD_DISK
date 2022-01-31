@@ -10,6 +10,22 @@ form {
     text-align: center;
     text-transform: uppercase;
     font-size: 1.4rem;
-    margin-bottom: auto;
+    margin-bottom: 1rem;
+  }
+}
+
+.form__footer {
+  margin: 1rem;
+  text-align: center;
+  font-size: 1.2rem;
+
+  & span {
+    margin-left: 0.5rem;
+    cursor: pointer;
+    color: rgb(13, 89, 231);
+
+    &:hover {
+      color: var(--colorFont);
+    }
   }
 }

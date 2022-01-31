@@ -6,12 +6,10 @@ import type { ChangeEventHandler, MutableRefObject, InputHTMLAttributes } from "
 interface IProps extends Pick<InputHTMLAttributes<HTMLInputElement>, "type" | "placeholder"> {
   inputValue: MutableRefObject<string>;
   error?: string;
-  errorServer?: string;
 }
 
-export const Input = ({ inputValue, type, placeholder, error, errorServer }: IProps) => {
+export const Input = ({ inputValue, type, placeholder, error }: IProps) => {
   const [value, setValue] = useState<string>("");
-  const errorText = error || errorServer;
 
   const handleChangeValue: ChangeEventHandler<HTMLInputElement> = ({ currentTarget }) => {
     setValue(currentTarget.value);
@@ -20,16 +18,10 @@ export const Input = ({ inputValue, type, placeholder, error, errorServer }: IPr
 
   return (
     <div className="input__wrapper">
-      <input
-        className={`input ${errorText ? "error" : ""}`}
-        value={value}
-        onChange={handleChangeValue}
-        type={type}
-        placeholder={placeholder}
-      />
-      {errorText && (
+      <input className={`input ${error ? "error" : ""}`} value={value} onChange={handleChangeValue} type={type} placeholder={placeholder} />
+      {error && (
         <div className="input__error">
-          <span>{errorText}</span>
+          <span>{error}</span>
         </div>
       )}
     </div>

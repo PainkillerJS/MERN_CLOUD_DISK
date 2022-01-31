@@ -1,22 +1,29 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { useAppDispatch } from "../../store/hooks/reduxHooks";
-import { getItem } from "../../package/storage";
-import { AuthToken } from "../../features/Auth/action";
+import { EFormType } from "../types";
+import { useAppDispatch, useAppSelector } from "../../store/hooks/reduxHooks";
+import { getFilesThunk } from "../../features/Files/action";
+import { Files } from "../UI/FIlesList";
 import { Header } from "../../components/UI/Header";
 
 export const MainPage = () => {
   const dispatch = useAppDispatch();
+  const isAuth = useAppSelector((state) => state.user.isAuth);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const token = getItem() !== "undefined" && getItem();
-
-    token && dispatch(AuthToken(token));
+    dispatch(getFilesThunk());
   }, []);
+
+  useEffect(() => {
+    !isAuth && navigate(`/${EFormType.FORM_LOGIN}`);
+  }, [isAuth]);
 
   return (
     <>
       <Header />
+      <Files />
     </>
   );
 };

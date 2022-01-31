@@ -34,10 +34,10 @@ class FileController {
   async getFiles(req: Request, res: Response) {
     try {
       //@ts-expect-error
-      const files = await File.find({ user: req.user.id, parent: req.query.parent });
+      const files = await File.find({ user: req.user.id, parent: req.query?.parent });
       return res.status(200).json({ files });
     } catch (e) {
-      return res.status(500).json({ message: "The files not defided" });
+      return res.status(500).json({ message: "The files not definded" });
     }
   }
 }

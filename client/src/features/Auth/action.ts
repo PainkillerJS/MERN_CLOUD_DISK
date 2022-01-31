@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { registration, login } from "../../package/api/rest/auth";
-import { ETypeLogin } from "../../package/types";
+import { registration, login, authToken } from "../../package/api/rest/auth";
+import { getItem } from "../../package/storage/adapter/token";
 import type { TUserRequest, IUserDTO } from "../../common/model/IUser";
 
 export const AuthRegistration = createAsyncThunk<IUserDTO, TUserRequest>("user/registration", async (body) => {
@@ -15,16 +15,16 @@ export const AuthRegistration = createAsyncThunk<IUserDTO, TUserRequest>("user/r
 
 export const AuthLogin = createAsyncThunk<IUserDTO, TUserRequest>("user/login", async (body) => {
   try {
-    const response = await login(JSON.stringify(body), ETypeLogin.LOGIN);
+    const response = await login(JSON.stringify(body));
     return response;
   } catch (e) {
     return e as string;
   }
 });
 
-export const AuthToken = createAsyncThunk<IUserDTO, string>("user/token", async (body) => {
+export const AuthToken = createAsyncThunk<IUserDTO, void>("user/token", async () => {
   try {
-    const response = await login(JSON.stringify(`BEARER ${body}`), ETypeLogin.AUTH_TOKEN);
+    const response = await authToken({ authorization: `BEARER ${getItem()}` });
     return response;
   } catch (e) {
     return e as string;

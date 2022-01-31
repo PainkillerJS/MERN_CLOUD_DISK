@@ -21,7 +21,7 @@ const pending = (state: IUserDTO) => {
 };
 
 const fulfilled = (state: IUserDTO, { payload: { jwt, user, message = "" } }: PayloadAction<IInitialState>) => {
-  if (jwt) {
+  if (user) {
     state.isAuth = true;
     state.user = user;
     jwt && setItem(jwt);

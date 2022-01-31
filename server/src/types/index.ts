@@ -1,4 +1,4 @@
-import type { Types } from "mongoose";
+import type { Types, Date } from "mongoose";
 export interface IUser {
   email: string;
   password: string;
@@ -14,6 +14,7 @@ export interface IFile {
   accessLink: string;
   size: number;
   path: string;
+  date: Date;
   user: Types.ObjectId;
   parent: Types.ObjectId;
   childs: Types.ObjectId[];

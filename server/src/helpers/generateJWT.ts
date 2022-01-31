@@ -6,5 +6,5 @@ export function genetateJWT(id: number) {
     id
   };
 
-  return jwt.sign(payload, process.env.SECRET_JWT as Secret, { expiresIn: "1h" });
+  return jwt.sign(payload, process.env.SECRET_JWT as Secret, { expiresIn: "6h" });
 }

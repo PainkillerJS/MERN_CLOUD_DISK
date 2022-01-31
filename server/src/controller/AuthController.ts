@@ -44,15 +44,13 @@ class AuthController {
     return res.status(200).json({ jwt, user });
   }
 
-  async auth(req: Request<{}, {}, IUser>, res: Response) {
+  async auth(req: Request, res: Response) {
     //@ts-expect-error
-    const user = await User.findById({ _id: req.user._id });
+    const user = await User.findById({ _id: req.user.id });
 
     if (!user) return res.status(400).json({ message: "The user is not been" });
 
-    const jwt = genetateJWT(user._id);
-
-    return res.status(200).json({ jwt, user });
+    return res.status(200).json({ user });
   }
 }
 
