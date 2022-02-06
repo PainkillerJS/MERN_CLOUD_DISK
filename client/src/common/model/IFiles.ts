@@ -3,6 +3,7 @@ export interface IFilesRequest {
 }
 
 export interface IFiles {
+  _id: string;
   name: string;
   type: string;
   accessLink: string;

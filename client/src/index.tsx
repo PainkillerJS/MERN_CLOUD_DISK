@@ -15,7 +15,7 @@ ReactDOM.render(
         <Route path="/" element={<Main />} />
       </Routes>
       <Routes>
-        <Route path="/:action" element={<Auth />} />
+        <Route path="/auth/:action" element={<Auth />} />
       </Routes>
     </Provider>
   </Router>,

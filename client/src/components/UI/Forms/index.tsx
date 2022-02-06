@@ -63,7 +63,7 @@ export const Forms = () => {
       : dispatch(AuthLogin({ email: inputName.current, password: inputPassword.current }));
   };
 
-  const changeForms = (type: EFormType) => () => navigate(`/${type}`);
+  const changeForms = (type: EFormType) => () => navigate(`/auth/${type}`);
 
   const props: IProps = {
     inputName,

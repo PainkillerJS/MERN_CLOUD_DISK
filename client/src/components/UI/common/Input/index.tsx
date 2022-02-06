@@ -1,6 +1,6 @@
 import "./styles.scss";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { ChangeEventHandler, MutableRefObject, InputHTMLAttributes } from "react";
 
 interface IProps extends Pick<InputHTMLAttributes<HTMLInputElement>, "type" | "placeholder"> {
@@ -15,6 +15,10 @@ export const Input = ({ inputValue, type, placeholder, error }: IProps) => {
     setValue(currentTarget.value);
     inputValue.current = currentTarget.value;
   };
+
+  useEffect(() => {
+    setValue(inputValue.current);
+  }, [inputValue.current]);
 
   return (
     <div className="input__wrapper">

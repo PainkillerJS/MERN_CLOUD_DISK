@@ -17,7 +17,7 @@ export const MainPage = () => {
   }, []);
 
   useEffect(() => {
-    !isAuth && navigate(`/${EFormType.FORM_LOGIN}`);
+    !isAuth && navigate(`/auth/${EFormType.FORM_LOGIN}`);
   }, [isAuth]);
 
   return (
