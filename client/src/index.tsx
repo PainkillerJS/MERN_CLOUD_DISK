@@ -12,10 +12,12 @@ ReactDOM.render(
   <Router>
     <Provider store={store}>
       <Routes>
-        <Route path="/" element={<Main />} />
-      </Routes>
-      <Routes>
-        <Route path="/auth/:action" element={<Auth />} />
+        <Route path="/">
+          <Route index element={<Main />} />
+        </Route>
+        <Route path="/auth">
+          <Route path=":action" element={<Auth />} />
+        </Route>
       </Routes>
     </Provider>
   </Router>,

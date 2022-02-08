@@ -6,6 +6,7 @@ import FileController from "../controller/FileController";
 const router = Router();
 
 router.post("/createFile", auth, FileController.createDir);
+router.post("/upload", auth, FileController.uploadFiles);
 router.get("", auth, FileController.getFiles);
 
 export default router;

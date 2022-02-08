@@ -1,4 +1,5 @@
 import express from "express";
+import fileLoader from "express-fileupload";
 import mongoose from "mongoose";
 
 import authRouter from "./routes/auth.routes";
@@ -8,6 +9,7 @@ import CORS from "./middlewares/CORS";
 const app = express();
 
 app.use(CORS);
+app.use(fileLoader({}));
 app.use(express.json());
 app.use("/auth", authRouter);
 app.use("/files", fileRouter);

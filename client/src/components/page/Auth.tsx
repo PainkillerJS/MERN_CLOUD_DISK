@@ -4,7 +4,7 @@ import { useAppDispatch } from "../../store/hooks/reduxHooks";
 import { getItem } from "../../package/storage";
 import { AuthToken } from "../../features/Auth/action";
 import { Modal } from "../UI/Modal";
-import { Forms } from "../UI/Forms";
+import { FormsModal } from "../UI/Forms";
 
 export const AuthPage = () => {
   const dispatch = useAppDispatch();
@@ -19,7 +19,7 @@ export const AuthPage = () => {
 
   return (
     <Modal>
-      <Forms />
+      <FormsModal />
     </Modal>
   );
 };

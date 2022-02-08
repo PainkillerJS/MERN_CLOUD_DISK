@@ -15,7 +15,7 @@ class AuthController {
 
     const { email, password } = req.body;
 
-    if (await User.findOne({ email })) return res.status(400).json({ message: "The email is registered" });
+    if (await User.findOne({ email })) return res.status(400).json({ email: "The email is registered" });
 
     const hashPassword = bcryptjs.hashSync(password, Number(process.env.saltHash));
     const user = new User({ email, password: hashPassword });
@@ -33,11 +33,11 @@ class AuthController {
 
     const user = await User.findOne({ email });
 
-    if (!user) return res.status(400).json({ message: "The user is not been" });
+    if (!user) return res.status(400).json({ email: "The user is not been" });
 
     const isValidPassword = bcryptjs.compareSync(password, user.password);
 
-    if (!isValidPassword) return res.status(400).json({ message: "The password had not corrected" });
+    if (!isValidPassword) return res.status(400).json({ password: "The password had not corrected" });
 
     const jwt = genetateJWT(user._id);
 

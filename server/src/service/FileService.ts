@@ -1,11 +1,11 @@
 import fs from "fs";
-import path from "path";
 
+import { createPath } from "../helpers/createPath";
 import type { IFile } from "../types";
 
 class FileService {
   createDir(file: IFile) {
-    const filePath = path.resolve(__dirname, "..", "assets", "files", file.user.toString(), file.path);
+    const filePath = createPath(file.user.toString(), file.path);
 
     return new Promise((resolve, reject) => {
       try {

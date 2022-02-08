@@ -1,4 +1,5 @@
 import type { Types, Date } from "mongoose";
+import type { UploadedFile } from "express-fileupload";
 export interface IUser {
   email: string;
   password: string;
@@ -20,4 +21,4 @@ export interface IFile {
   childs: Types.ObjectId[];
 }
 
-export type IFileRequest = Pick<IFile, "name" | "type" | "parent">;
+export type TFileRequest = Pick<IFile, "name" | "type" | "parent">;
