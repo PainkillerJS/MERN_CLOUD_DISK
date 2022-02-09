@@ -23,7 +23,6 @@ class FileController {
       } else {
         file.path = path.join(parentFile.path, file.name);
         await FileService.createDir(file);
-        parentFile.size += file.size;
         parentFile.childs.push(file._id);
         await parentFile.save();
       }
@@ -57,7 +56,7 @@ class FileController {
 
       if (!user) return res.status(400).json({ message: "The user is not been" });
 
-      if (user?.usedSpace + file.size > user?.diskSpace) return res.status(404).json({ message: "The disk space exceeded" });
+      if (user.usedSpace + file.size > user.diskSpace) return res.status(404).json({ message: "The disk space exceeded" });
 
       user.diskSpace = user.usedSpace + file.size;
 

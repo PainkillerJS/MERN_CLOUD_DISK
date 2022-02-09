@@ -33,3 +33,14 @@
     align-items: center;
   }
 }
+
+.dragAndDrop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 65px);
+  font-size: 2rem;
+  text-align: center;
+  border: 2px dashed black;
+}
