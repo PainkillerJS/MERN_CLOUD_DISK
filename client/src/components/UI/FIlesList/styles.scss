@@ -27,4 +27,9 @@
   &__size {
     grid-column-start: 6;
   }
+
+  &__controller {
+    display: flex;
+    align-items: center;
+  }
 }

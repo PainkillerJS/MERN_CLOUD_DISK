@@ -1,3 +1,5 @@
+@import url("../../../../common/color.scss");
+
 .file {
   display: grid;
   grid-template-columns: 1fr 4fr repeat(4, 1fr);
@@ -25,11 +27,11 @@
   }
 
   &__size {
-    padding-left: 1.25rem;
+    padding-left: 0.9rem;
     grid-column-start: 6;
   }
 
   &:hover {
-    background-color: rgb(120, 191, 219);
+    background-color: var(--styleHover);
   }
 }

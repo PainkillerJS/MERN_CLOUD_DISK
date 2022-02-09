@@ -6,3 +6,6 @@ export const getFiles = async (query: string, headers: RequestInit["headers"]) =
 
 export const createDir = async (body: RequestInit["body"], headers: RequestInit["headers"]) =>
   await makeRequest("http://localhost:5000/files/createFile", { method: EMethodRequest.POST, body, headers });
+
+export const uploadFile = async (body: RequestInit["body"], headers: RequestInit["headers"]) =>
+  await makeRequest("http://localhost:5000/files/upload", { method: EMethodRequest.POST, body, headers }, true);

@@ -23,6 +23,7 @@ class FileController {
       } else {
         file.path = path.join(parentFile.path, file.name);
         await FileService.createDir(file);
+        parentFile.size += file.size;
         parentFile.childs.push(file._id);
         await parentFile.save();
       }
@@ -72,7 +73,7 @@ class FileController {
         size: file.size,
         path,
         parent: parentFolder?._id,
-        user: user?._id
+        user: user._id
       });
 
       await dbFile.save();

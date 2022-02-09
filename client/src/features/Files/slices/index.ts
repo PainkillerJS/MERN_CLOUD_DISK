@@ -27,14 +27,14 @@ export const filesSlice = createSlice({
     });
     builder.addCase(getFilesThunk.fulfilled, (state, { payload }: PayloadAction<IFilesDTO>) => {
       state.files = payload.files;
-      state.isLoading = true;
+      state.isLoading = false;
     });
     builder.addCase(createDirThunk.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(createDirThunk.fulfilled, (state, { payload }: PayloadAction<boolean>) => {
       state.result = payload;
-      state.isLoading = true;
+      state.isLoading = false;
     });
   }
 });

@@ -17,5 +17,13 @@ export const BackBtn = () => {
     dispatch(getFilesThunk(newCurrentDir));
   };
 
-  return <div>{!!path.length && <Button onClick={backDir} className="backBtn" text="Назад" />}</div>;
+  return (
+    <>
+      {!!path.length && (
+        <div className="backBtn__wrapper">
+          <Button onClick={backDir} className="backBtn" text="Назад" />
+        </div>
+      )}
+    </>
+  );
 };
