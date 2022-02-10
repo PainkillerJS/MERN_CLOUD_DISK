@@ -1,19 +1,19 @@
 import "./style.scss";
 
-import { useAppDispatch } from "../../../../store/hooks/reduxHooks";
+import { useMemo } from "react";
 
+import { useAppDispatch } from "../../../../store/hooks/reduxHooks";
 import { useCurrentDir } from "../../../context/CurrentDirContext";
-import { getFilesThunk } from "../../../../features/Files/action";
+import { getFilesThunk, downloadFileThunk } from "../../../../features/Files/action";
 import { ImgDir } from "../../../../assets/ImgDir";
 import { ImgFile } from "../../../../assets/ImgFile";
-
 import type { IFiles } from "../../../../common/model/IFiles";
 
 export const File = ({ name, size, type, date, _id }: Pick<IFiles, "_id" | "name" | "size" | "type" | "date">) => {
   const dispatch = useAppDispatch();
   const { setCurrentDir, path } = useCurrentDir();
 
-  const icon = type === "dir" ? <ImgDir /> : <ImgFile />;
+  const icon = useMemo(() => (type === "dir" ? <ImgDir /> : <ImgFile />), []);
 
   const openDir = () => {
     if (type === "dir") {
@@ -22,14 +22,23 @@ export const File = ({ name, size, type, date, _id }: Pick<IFiles, "_id" | "name
     }
   };
 
+  const downloadFile = () => dispatch(downloadFileThunk({ id: _id, name }));
+
   return (
     <div className="file" onClick={openDir}>
       <div className="file__name">
         {icon}
         {name}
       </div>
+
+      {type !== "dir" && (
+        <div className="file__download" onClick={downloadFile}>
+          Скачать файл
+        </div>
+      )}
+
       <div className="file__date">{date?.slice(0, 10)}</div>
-      <div className="file__size">{size}gb</div>
+      <div className="file__size">{size}byte</div>
     </div>
   );
 };

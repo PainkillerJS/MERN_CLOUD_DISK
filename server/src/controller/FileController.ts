@@ -83,6 +83,21 @@ class FileController {
       return res.status(500).json({ message: "Upload error" });
     }
   }
+
+  async downloadFile(req: Request<{}, {}, {}, { id: string }>, res: Response) {
+    try {
+      //@ts-expect-error
+      const file = await File.findOne({ _id: req.query.id, user: req.user.id });
+
+      if (!file) return res.status(500).json({ message: "The file was not found" });
+
+      if (fs.existsSync(file.path)) return res.download(file.path, file.name);
+
+      return res.status(500).json({ message: "The path is not found" });
+    } catch (e) {
+      return res.status(500).json({ message: "download error" });
+    }
+  }
 }
 
 export default new FileController();

@@ -20,7 +20,8 @@
     }
   }
 
-  &__date {
+  &__date,
+  &__download {
     padding-left: 0.7rem;
     grid-column-start: 4;
   }
@@ -30,7 +31,28 @@
     grid-column-start: 6;
   }
 
+  &__download {
+    display: none;
+    padding: 0.2rem;
+    font-size: 1.1rem;
+    text-align: center;
+    border: 2px dashed black;
+
+    &:hover {
+      background-color: rgb(226, 117, 14);
+    }
+  }
+
   &:hover {
     background-color: var(--styleHover);
+
+    & .file__size,
+    & .file__date {
+      display: none;
+    }
+
+    & .file__download {
+      display: block;
+    }
   }
 }

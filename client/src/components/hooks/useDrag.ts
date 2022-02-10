@@ -30,7 +30,7 @@ export const useDrapDrop = () => {
 
     files.forEach(async (file, index) => {
       await dispatch(uploadFileThunk({ file, parent: currentDir }));
-      if (index === files.length - 1) dispatch(getFilesThunk());
+      if (index === files.length - 1) dispatch(getFilesThunk(currentDir));
     });
 
     setDragEnter(false);
