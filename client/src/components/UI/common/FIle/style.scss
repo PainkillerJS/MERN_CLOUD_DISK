@@ -15,8 +15,11 @@
       margin-right: 0.6rem;
     }
 
-    img {
-      width: 17%;
+    & span {
+      width: 7rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 

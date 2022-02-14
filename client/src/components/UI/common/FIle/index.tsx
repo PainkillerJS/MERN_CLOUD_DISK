@@ -33,7 +33,7 @@ export const File = ({ name, size, type, date, _id }: Pick<IFiles, "_id" | "name
     <div className="file" onClick={openDir}>
       <div className="file__name">
         {icon}
-        {name}
+        <span>{name}</span>
       </div>
 
       {type !== "dir" && (
