@@ -1,15 +1,17 @@
 import type { Types, Date } from "mongoose";
 import type { UploadedFile } from "express-fileupload";
 export interface IUser {
+  _id: Types.ObjectId;
   email: string;
   password: string;
   diskSpace: number;
   usedSpace: number;
   avatar: string;
-  files: Types.ObjectId;
+  files: Types.ObjectId[];
 }
 
 export interface IFile {
+  _id: Types.ObjectId;
   name: string;
   type: string;
   accessLink: string;

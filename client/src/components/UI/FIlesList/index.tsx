@@ -1,6 +1,5 @@
 import "./styles.scss";
 
-import { CurrentDirContext } from "../../context/CurrentDirContext";
 import { useAppSelector } from "../../../store/hooks/reduxHooks";
 import { HeaderTable } from "./components/HeaderTable";
 import { useDrapDrop } from "../../hooks/useDrag";
@@ -18,19 +17,17 @@ export const Files = () => {
   return (
     <>
       {!dragEnter ? (
-        <CurrentDirContext>
-          <div className="files" onDragEnter={handleDragEnter} onDragLeave={handleDragLeave} onDragOver={handleDragEnter}>
-            <SideBar />
-            <div className="files__list">
-              <div className="files__controller">
-                <BackBtn />
-                <UploadFile />
-              </div>
-              <HeaderTable />
-              {files}
+        <div className="files" onDragEnter={handleDragEnter} onDragLeave={handleDragLeave} onDragOver={handleDragEnter}>
+          <SideBar />
+          <div className="files__list">
+            <div className="files__controller">
+              <BackBtn />
+              <UploadFile />
             </div>
+            <HeaderTable />
+            {files}
           </div>
-        </CurrentDirContext>
+        </div>
       ) : (
         <div
           className="dragAndDrop"

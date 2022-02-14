@@ -7,7 +7,8 @@ export const store = configureStore({
   reducer: {
     user: usersSlice.reducer,
     files: filesSlice.reducer
-  }
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware()
 });
 
 export type RootState = ReturnType<typeof store.getState>;

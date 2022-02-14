@@ -9,5 +9,6 @@ router.post("/createFile", auth, FileController.createDir);
 router.post("/upload", auth, FileController.uploadFiles);
 router.get("", auth, FileController.getFiles);
 router.get("/download", auth, FileController.downloadFile);
+router.delete("/delete", auth, FileController.deleteFile);
 
 export default router;

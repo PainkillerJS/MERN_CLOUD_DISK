@@ -1,6 +1,7 @@
 export enum EMethodRequest {
   GET = "GET",
-  POST = "POST"
+  POST = "POST",
+  DELETE = "DELETE"
 }
 
 export enum ETypeLogin {

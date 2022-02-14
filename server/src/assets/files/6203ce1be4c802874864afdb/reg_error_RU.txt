@@ -1,9 +1,0 @@
-{
-"step1PhoneCodeEmpty" : "Введите код подтверждения, полученный по SMS",
-"step1PhoneNumberFieldEmpty" : "Введите номер телефона",
-"step1EmailRequired" : "Введите Email",
-"step1CountryCodeEmpty" : "Необходимо выбрать телефонный код страны",
-"step1CurrencyFieldEmpty" : "Выберите валюту счета",
-"step1BonusEmpty" : "Необходимо выбрать бонус",
-"step2ValidationCodeEmpty" : "Введите код подтверждения",
-}

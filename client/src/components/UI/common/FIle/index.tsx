@@ -4,14 +4,14 @@ import { useMemo } from "react";
 
 import { useAppDispatch } from "../../../../store/hooks/reduxHooks";
 import { useCurrentDir } from "../../../context/CurrentDirContext";
-import { getFilesThunk, downloadFileThunk } from "../../../../features/Files/action";
+import { getFilesThunk, downloadFileThunk, deleteFileThunk } from "../../../../features/Files/action";
 import { ImgDir } from "../../../../assets/ImgDir";
 import { ImgFile } from "../../../../assets/ImgFile";
 import type { IFiles } from "../../../../common/model/IFiles";
 
 export const File = ({ name, size, type, date, _id }: Pick<IFiles, "_id" | "name" | "size" | "type" | "date">) => {
   const dispatch = useAppDispatch();
-  const { setCurrentDir, path } = useCurrentDir();
+  const { setCurrentDir, path, currentDir } = useCurrentDir();
 
   const icon = useMemo(() => (type === "dir" ? <ImgDir /> : <ImgFile />), []);
 
@@ -23,6 +23,11 @@ export const File = ({ name, size, type, date, _id }: Pick<IFiles, "_id" | "name
   };
 
   const downloadFile = () => dispatch(downloadFileThunk({ id: _id, name }));
+
+  const deleteFile = async () =>
+    confirm(`Удалить ${name}?`) &&
+    (await dispatch(deleteFileThunk({ id: _id, parent: currentDir }))) &&
+    dispatch(getFilesThunk(currentDir));
 
   return (
     <div className="file" onClick={openDir}>
@@ -37,8 +42,11 @@ export const File = ({ name, size, type, date, _id }: Pick<IFiles, "_id" | "name
         </div>
       )}
 
+      <div className="file__remove" onClick={deleteFile}>
+        Удалить
+      </div>
       <div className="file__date">{date?.slice(0, 10)}</div>
-      <div className="file__size">{size}byte</div>
+      <div className="file__size">{size} byte</div>
     </div>
   );
 };

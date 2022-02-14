@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { getFiles, createDir, uploadFile, downloadFile } from "../../package/api/rest/files";
+import { getFiles, createDir, uploadFile, downloadFile, deleteFile } from "../../package/api/rest/files";
 import { getItem } from "../../package/storage/adapter/token";
 import type { IFilesDTO, IFilesRequest, IFiles } from "../../common/model/IFiles";
 
@@ -56,6 +56,15 @@ export const downloadFileThunk = createAsyncThunk<void, { id: string; name: stri
     document.body.appendChild(aDownload);
     aDownload.click();
     aDownload.remove();
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+export const deleteFileThunk = createAsyncThunk<void, { id: string; parent: string }>("files/delete", async ({ id, parent }) => {
+  try {
+    const response = await deleteFile(`?id=${id}${parent ? `&parent=${parent}` : ""}`, { authorization: `BEARER ${getItem()}` });
+    return response;
   } catch (e) {
     console.log(e);
   }

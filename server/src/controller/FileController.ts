@@ -45,7 +45,7 @@ class FileController {
     }
   }
 
-  async uploadFiles(req: Request<{}, {}, Pick<TFileRequest, "parent">>, res: Response) {
+  async uploadFiles(req: Request<{}, {}, {}, { parent: string }>, res: Response) {
     try {
       //@ts-expect-error
       const file = req.files.file as UploadedFile;
@@ -55,16 +55,13 @@ class FileController {
       const parentFolder = await File.findOne({ _id: req.body.parent, user: req.user.id });
 
       if (!user) return res.status(400).json({ message: "The user is not been" });
-
       if (user.usedSpace + file.size > user.diskSpace) return res.status(404).json({ message: "The disk space exceeded" });
 
-      user.diskSpace = user.usedSpace + file.size;
-
-      let path = parentFolder ? createPath(parentFolder.path, file.name) : createPath(user._id.toString(), file.name);
+      const path = parentFolder
+        ? createPath(user._id.toString(), parentFolder.path, file.name)
+        : createPath(user._id.toString(), file.name);
 
       if (fs.existsSync(path)) return res.status(200).json({ message: "The file is exists" });
-
-      file.mv(path);
 
       const dbFile = new File({
         name: file.name,
@@ -75,10 +72,20 @@ class FileController {
         user: user._id
       });
 
+      if (parentFolder) {
+        parentFolder.childs.push(dbFile._id);
+        await parentFolder.save();
+      }
+
+      file.mv(path);
+
+      user.files.push(dbFile._id);
+      user.usedSpace += file.size;
+
       await dbFile.save();
       await user.save();
 
-      res.status(200).json(dbFile);
+      res.status(200).json({ message: "The file is upload" });
     } catch (e) {
       return res.status(500).json({ message: "Upload error" });
     }
@@ -90,12 +97,34 @@ class FileController {
       const file = await File.findOne({ _id: req.query.id, user: req.user.id });
 
       if (!file) return res.status(500).json({ message: "The file was not found" });
-
       if (fs.existsSync(file.path)) return res.download(file.path, file.name);
 
       return res.status(500).json({ message: "The path is not found" });
     } catch (e) {
       return res.status(500).json({ message: "download error" });
+    }
+  }
+
+  async deleteFile(req: Request<{}, {}, {}, { id: string; parent: string }>, res: Response) {
+    try {
+      const parent = await File.findOne({ _id: req.query.parent });
+      //@ts-expect-error
+      const user = await User.findOne({ _id: req.user.id });
+
+      if (!user) return res.status(404).json({ message: "The user is not found" });
+
+      const file = await FileService.rescueMemory(req.query.id, user);
+
+      await user.save();
+
+      if (parent) {
+        parent.childs = parent.childs.filter((childId) => childId !== file._id);
+        await parent.save();
+      }
+
+      return res.status(200).json({ message: "The file was successfully deleted from DB" });
+    } catch (e) {
+      return res.status(500).json({ message: "The delete failed" });
     }
   }
 }
