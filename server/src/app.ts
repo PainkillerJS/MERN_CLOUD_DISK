@@ -11,8 +11,8 @@ const app = express();
 app.use(CORS);
 app.use(fileLoader({}));
 app.use(express.json());
-app.use("/auth", authRouter);
-app.use("/files", fileRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/files", fileRouter);
 
 const PORT = process.env.PORT;
 const CONNECT = process.env.CONNECT || "";
