@@ -1,5 +1,6 @@
 import path from "path";
 import fs from "fs";
+
 import type { UploadedFile } from "express-fileupload";
 import type { Request, Response } from "express";
 
@@ -35,7 +36,7 @@ class FileController {
     }
   }
 
-  async getFiles(req: Request, res: Response) {
+  async getFiles(req: Request<{}, {}, {}, { name: string }>, res: Response) {
     try {
       //@ts-expect-error
       const files = await File.find({ user: req.user.id, parent: req.query?.parent });

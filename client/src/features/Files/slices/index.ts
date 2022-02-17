@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-import { getFilesThunk, createDirThunk, downloadFileThunk, deleteFileThunk, uploadFileThunk } from "../action";
+import { getFilesThunk, createDirThunk } from "../action";
 import type { IFilesDTO } from "../../../common/model/IFiles";
 import type { IRequest } from "../../../common/model/IRequest";
 
@@ -21,10 +21,6 @@ const pending = (state: IInitialState) => {
   state.isLoading = true;
 };
 
-const fulfilled = (state: IInitialState) => {
-  state.isLoading = false;
-};
-
 export const filesSlice = createSlice({
   name: "files",
   initialState,
@@ -40,11 +36,5 @@ export const filesSlice = createSlice({
       state.result = payload;
       state.isLoading = false;
     });
-    builder.addCase(downloadFileThunk.pending, pending);
-    builder.addCase(downloadFileThunk.fulfilled, fulfilled);
-    builder.addCase(deleteFileThunk.pending, pending);
-    builder.addCase(deleteFileThunk.fulfilled, fulfilled);
-    builder.addCase(uploadFileThunk.pending, pending);
-    builder.addCase(uploadFileThunk.fulfilled, fulfilled);
   }
 });

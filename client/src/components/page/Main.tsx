@@ -5,7 +5,7 @@ import { EFormType } from "../types";
 import { CurrentDirContext } from "../context/CurrentDirContext";
 import { useAppDispatch, useAppSelector } from "../../store/hooks/reduxHooks";
 import { getFilesThunk } from "../../features/Files/action";
-import { Files } from "../UI/FIlesList";
+import { FilesList } from "../UI/FIlesList";
 import { Header } from "../../components/UI/Header";
 
 export const MainPage = () => {
@@ -25,7 +25,7 @@ export const MainPage = () => {
     <>
       <Header />
       <CurrentDirContext>
-        <Files />
+        <FilesList />
       </CurrentDirContext>
     </>
   );
