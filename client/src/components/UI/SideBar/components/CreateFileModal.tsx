@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useState } from "react";
 
 import { useAppDispatch } from "../../../../store/hooks/reduxHooks";
 import { createDirThunk, getFilesThunk } from "../../../../features/Files/action";
@@ -11,16 +11,13 @@ import type { IModalProps } from "../../Modal";
 export const CreateFileModal = ({ callbackCloseModal }: Required<Pick<IModalProps, "callbackCloseModal">>) => {
   const dispatch = useAppDispatch();
   const { currentDir } = useCurrentDir();
-  const nameDirRef = useRef<string>("");
+  const [nameDir, setNameDir] = useState<string>("");
 
   const createDir = async () => {
-    const { payload: response } = await dispatch(
-      createDirThunk({ name: nameDirRef.current, type: "dir", parent: currentDir || undefined })
-    );
+    const { payload: response } = await dispatch(createDirThunk({ name: nameDir, type: "dir", parent: currentDir || undefined }));
 
     if (response) {
       currentDir ? dispatch(getFilesThunk(currentDir)) : dispatch(getFilesThunk());
-      nameDirRef.current = "";
       callbackCloseModal();
     }
   };
@@ -28,7 +25,7 @@ export const CreateFileModal = ({ callbackCloseModal }: Required<Pick<IModalProp
   return (
     <Modal callbackCloseModal={callbackCloseModal}>
       <span className="modal__title">Создать папку</span>
-      <Input inputValue={nameDirRef} placeholder="Имя папки" />
+      <Input value={nameDir} setValue={setNameDir} placeholder="Имя папки" />
       <Button text="Создать" className="modal__btn" onClick={createDir} />
       <span className="modal__warning">Папка будет создана в текущей директории</span>
     </Modal>

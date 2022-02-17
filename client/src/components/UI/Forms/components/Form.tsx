@@ -1,7 +1,5 @@
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
 import type { MouseEventHandler } from "react";
-
-import { useParams } from "react-router-dom";
 
 import { AuthRegistration, AuthLogin } from "../../../../features/Auth/action";
 import { useAppDispatch, useAppSelector } from "../../../../store/hooks/reduxHooks";
@@ -12,18 +10,21 @@ import { Button } from "../../common/Btn";
 
 const errorsFromServer = ["email", "password"];
 
-export const Form = () => {
+interface IProps {
+  action?: string;
+}
+
+export const Form = ({ action }: IProps) => {
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector((state) => state.user);
-  const { action } = useParams();
 
-  const inputNameRef = useRef<string>("");
-  const inputPasswordRef = useRef<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [error, setError] = useState({ type: "", value: "" });
 
   const onSendData: MouseEventHandler = async (e) => {
     e.preventDefault();
-    const errorValid = validateEmail(inputNameRef.current);
+    const errorValid = validateEmail(email);
 
     if (errorValid) {
       return setError({ type: "email", value: errorValid });
@@ -32,9 +33,7 @@ export const Form = () => {
     }
 
     const { payload } = (
-      action === EFormType.FORM_REG
-        ? await dispatch(AuthRegistration({ email: inputNameRef.current, password: inputPasswordRef.current }))
-        : await dispatch(AuthLogin({ email: inputNameRef.current, password: inputPasswordRef.current }))
+      action === EFormType.FORM_REG ? await dispatch(AuthRegistration({ email, password })) : await dispatch(AuthLogin({ email, password }))
     ) as { payload: { email: string; password: string } };
 
     if (errorsFromServer.includes(Object.keys(payload)[0])) {
@@ -43,12 +42,22 @@ export const Form = () => {
     }
   };
 
+  useEffect(() => {
+    setPassword("");
+    setEmail("");
+  }, [action]);
+
   return (
-    <form>
-      <h3>{action === EFormType.FORM_REG ? "Регистрация" : "Авторизация"}</h3>
-      <Input error={error.type === "email" ? error.value : ""} inputValue={inputNameRef} type="email" placeholder="Email" />
-      <Input error={error.type === "password" ? error.value : ""} inputValue={inputPasswordRef} type="password" placeholder="Пароль" />
+    <>
+      <Input error={error.type === "email" ? error.value : ""} value={email} setValue={setEmail} type="email" placeholder="Email" />
+      <Input
+        error={error.type === "password" ? error.value : ""}
+        value={password}
+        setValue={setPassword}
+        type="password"
+        placeholder="Пароль"
+      />
       <Button text="Отправить" onClick={onSendData} disabled={isLoading} />
-    </form>
+    </>
   );
 };
