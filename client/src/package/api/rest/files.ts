@@ -15,3 +15,6 @@ export const downloadFile = async (query: string, headers: RequestInit["headers"
 
 export const deleteFile = async (query: string, headers: RequestInit["headers"]) =>
   makeRequest(`http://localhost:5000/api/files/delete${query}`, { method: EMethodRequest.DELETE, headers });
+
+export const searchFiles = async (query: string, headers: RequestInit["headers"]) =>
+  makeRequest(`http://localhost:5000/api/files/search?${query}`, { method: EMethodRequest.GET, headers });

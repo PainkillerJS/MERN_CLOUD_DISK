@@ -8,7 +8,7 @@ import { createPath } from "../helpers/createPath";
 import FileService from "../service/FileService";
 import File from "../models/File";
 import User from "../models/User";
-import type { TFileRequest } from "../types";
+import type { TFileRequest, IFile } from "../types";
 
 class FileController {
   async createDir(req: Request<{}, {}, TFileRequest>, res: Response) {
@@ -126,6 +126,24 @@ class FileController {
       return res.status(200).json({ message: "The file was successfully deleted from DB" });
     } catch (e) {
       return res.status(500).json({ message: "The delete failed" });
+    }
+  }
+
+  async searchFiles(req: Request<{}, {}, {}, { name: string; parent: string }>, res: Response) {
+    try {
+      const files = await new Promise<IFile[]>(async (resolve, reject) => {
+        try {
+          //@ts-expect-error
+          const files = await File.find({ user: req.user.id });
+          resolve(files);
+        } catch (err) {
+          reject(err);
+        }
+      }).then((files) => files.filter(({ name }) => name.includes(name)));
+
+      res.status(200).json({ files });
+    } catch (e) {
+      res.status(500).json({ message: "The search is not supported" });
     }
   }
 }

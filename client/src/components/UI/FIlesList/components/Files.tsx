@@ -6,7 +6,7 @@ import { HeaderTable } from "./HeaderTable";
 import { File } from "../../common/FIle";
 
 export const Files = () => {
-  const { isLoading, files } = useAppSelector((state) => state.files);
+  const { isLoading, files, isSearch } = useAppSelector((state) => state.files);
 
   return (
     <>
@@ -16,7 +16,7 @@ export const Files = () => {
         ) : (
           <>
             <div className="files__controller">
-              <BackBtn />
+              {!isSearch && <BackBtn />}
               <UploadFile />
             </div>
             <HeaderTable />

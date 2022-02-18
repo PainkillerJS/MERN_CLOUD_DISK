@@ -9,7 +9,9 @@ export const converSize = (size: number) => {
       return (size / sizeMb).toFixed(1) + " Mb";
     case size > 1024:
       return (size / 1024).toFixed(1) + " Kb";
-    default:
+    case !!size:
       return size + "B";
+    default:
+      return "";
   }
 };

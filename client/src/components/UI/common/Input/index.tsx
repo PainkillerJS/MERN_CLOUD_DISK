@@ -6,10 +6,14 @@ interface IProps extends Pick<InputHTMLAttributes<HTMLInputElement>, "type" | "p
   value: string;
   setValue: Dispatch<SetStateAction<string>>;
   error?: string;
+  onChangeCustom?: (name: string) => void;
 }
 
-export const Input = ({ type, placeholder, error, setValue, value }: IProps) => {
-  const handleChangeValue: ChangeEventHandler<HTMLInputElement> = ({ currentTarget }) => setValue(currentTarget.value);
+export const Input = ({ type, placeholder, error, setValue, value, onChangeCustom }: IProps) => {
+  const handleChangeValue: ChangeEventHandler<HTMLInputElement> = ({ currentTarget }) => {
+    setValue(currentTarget.value);
+    onChangeCustom && onChangeCustom(currentTarget.value);
+  };
 
   return (
     <div className="input__wrapper">

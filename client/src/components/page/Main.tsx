@@ -22,11 +22,9 @@ export const MainPage = () => {
   }, [isAuth]);
 
   return (
-    <>
+    <CurrentDirContext>
       <Header />
-      <CurrentDirContext>
-        <FilesList />
-      </CurrentDirContext>
-    </>
+      <FilesList />
+    </CurrentDirContext>
   );
 };

@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
-import { useAppSelector, useAppDispatch } from "../../../../store/hooks/reduxHooks";
+import { useAppSelector } from "../../../../store/hooks/reduxHooks";
 import { logOut } from "../../../../features/Auth/slice/userSlice";
 import { EFormType } from "../../../types";
+import type { IDispatchProps } from "../../../types";
 
-export const HeaderPanel = () => {
+export const HeaderPanel = ({ dispatch }: IDispatchProps) => {
   const isAuth = useAppSelector((state) => state.user.isAuth);
-  const dispatch = useAppDispatch();
 
   const logOutProfile = () => dispatch(logOut());
 
