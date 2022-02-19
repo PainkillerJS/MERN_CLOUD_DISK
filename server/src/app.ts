@@ -14,7 +14,7 @@ app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use("/api/files", fileRouter);
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 const CONNECT = process.env.CONNECT || "";
 
 async function startServer() {
