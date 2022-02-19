@@ -3,10 +3,11 @@ import { Preloader } from "../../common/Preloader";
 import { BackBtn } from "../../BackBtn";
 import { UploadFile } from "../../UploaderFile";
 import { HeaderTable } from "./HeaderTable";
+import { MessageUpload } from "../../MessageUpload";
 import { File } from "../../common/FIle";
 
 export const Files = () => {
-  const { isLoading, files, isSearch } = useAppSelector((state) => state.files);
+  const { isLoading, files, isSearch, isUpload } = useAppSelector((state) => state.files);
 
   return (
     <>
@@ -26,6 +27,7 @@ export const Files = () => {
           </>
         )}
       </div>
+      {isUpload && <MessageUpload />}
     </>
   );
 };

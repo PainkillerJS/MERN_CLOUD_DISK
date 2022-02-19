@@ -11,7 +11,7 @@ class AuthController {
   async registration(req: Request<{}, {}, IUser>, res: Response) {
     const errors = validationResult(req);
 
-    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array(), value: req.body });
 
     const { email, password } = req.body;
 

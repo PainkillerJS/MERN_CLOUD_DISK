@@ -1,13 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-import { getFilesThunk, createDirThunk, searchFilesThunk } from "../action";
+import { getFilesThunk, createDirThunk, searchFilesThunk, uploadFileThunk } from "../action";
 import type { IFilesDTO } from "../../../common/model/IFiles";
 import type { IRequest } from "../../../common/model/IRequest";
 
 interface IInitialState extends IRequest {
   files: IFilesDTO["files"];
   isSearch: boolean;
+  isUpload: boolean;
   result: boolean;
 }
 
@@ -16,6 +17,7 @@ const initialState: IInitialState = {
   error: "",
   isLoading: false,
   isSearch: false,
+  isUpload: false,
   result: false
 };
 
@@ -38,6 +40,12 @@ export const filesSlice = createSlice({
     builder.addCase(createDirThunk.fulfilled, (state, { payload }: PayloadAction<boolean>) => {
       state.result = payload;
       state.isLoading = false;
+    });
+    builder.addCase(uploadFileThunk.pending, (state: IInitialState) => {
+      state.isUpload = true;
+    });
+    builder.addCase(uploadFileThunk.fulfilled, (state) => {
+      state.isUpload = false;
     });
     builder.addCase(searchFilesThunk.pending, (state: IInitialState) => {
       state.isLoading = true;
